@@ -61,17 +61,33 @@ def get_articles():
         query = query + "WHERE published_date >= '2020-02-08' AND published_date IS NOT NULL "
         params = ()
     
-    query = query + ("GROUP BY published_date ORDER BY published_date ASC")
+    if 'dpa' in request.args:
+        query_dpa = query + "AND author LIKE 'dpa' "
+        query_dpa = query_dpa + ("GROUP BY published_date ORDER BY published_date ASC")
+    
+    query_all = query + ("GROUP BY published_date ORDER BY published_date ASC")
 
-    cur.execute(query, params)
-    rows = cur.fetchall()
+    cur.execute(query_all, params)
+    rows_all = cur.fetchall()
+    if 'dpa' in request.args:
+        cur.execute(query_dpa, params)
+        rows_dpa = cur.fetchall()
     array_of_dicts = []
-    for row in rows:
-        dictionary = {
-            'date' : str(row[1]),
-            'count' : row[0] }
-        array_of_dicts.append(dictionary)
-    return jsonify(array_of_dicts)
+    if 'dpa' in request.args:
+        for i, j in zip(rows_all, rows_dpa):
+            dictionary = {
+                'date' : str(i[1]),
+                'countall' : str(i[0]),
+                'countdpa' : str(j[0]) }
+            array_of_dicts.append(dictionary)
+        return jsonify(array_of_dicts)
+    else:
+        for row in rows_all:
+            dictionary = {
+                'date' : str(row[1]),
+                'count' : row[0] }
+            array_of_dicts.append(dictionary)
+        return jsonify(array_of_dicts)
 
 @app.route('/articles/weekday/hour', methods=['GET'])
 def get_weekday_hour():

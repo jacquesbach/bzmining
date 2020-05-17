@@ -68,7 +68,8 @@
         </form>
         <div class="alert alert-info" v-show="loading">Lade...</div>
         <div class="alert alert-danger" v-show="errored">Es trat ein Fehler auf.</div>
-        <chart :articlesattribute="articlesnew"></chart>
+        <!--<d3timeserieschart :articlesattribute="articlesnew"></d3timeserieschart>-->
+        <amchartstimeserieschart :articlesattribute="articlesnew"></amchartstimeserieschart>
       </div>
   </body>
 </template>
@@ -79,12 +80,14 @@ import axios from 'axios';
 
 import moment from 'moment';
 
-import chart from './components/chart.vue';
+import d3timeserieschart from './components/d3timeserieschart.vue';
+import amchartstimeserieschart from './components/amchartstimeserieschart.vue';
 
 export default {
   name: 'app',
   components: {
-    chart,
+    d3timeserieschart,
+    amchartstimeserieschart,
   },
   data() {
     return {
@@ -105,7 +108,8 @@ export default {
       while (startDate.isSameOrBefore(endDate)) {
         dates.push({
           date: startDate.format('YYYY-MM-DD'),
-          count: 0,
+          countall: 0,
+          countdpa: 0,
         });
         startDate.add(1, 'days');
       }
@@ -113,7 +117,7 @@ export default {
     },
     getArticles() {
       this.loading = true;
-      const path = `http://localhost:5000/articles?s=${this.searchterm}&author=${this.authorterm}&title=${this.titleterm}`;
+      const path = `http://localhost:5000/articles?dpa&s=${this.searchterm}&author=${this.authorterm}&title=${this.titleterm}`;
       this.startDate = moment('2020-02-08').format('YYYY-MM-DD');
       axios
         .get(path)
@@ -123,7 +127,8 @@ export default {
             const key = moment(element.date).format('YYYY-MM-DD');
             const obj = payload.filter((o) => o.date === key)[0];
             if ((typeof obj !== 'undefined') && (obj !== null)) {
-              obj.count = element.count;
+              obj.countall = element.countall;
+              obj.countdpa = element.countdpa;
             }
           });
           this.articlesnew = payload;
