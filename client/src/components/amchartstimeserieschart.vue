@@ -30,10 +30,6 @@ export default {
       const chart = am4core.create('$CHART$', am4charts.XYChart);
 
       // Add data
-      // chart.dataSource.url = "/get-zeitverlauf-dpa.php";
-      // chart.dataSource.parser = new am4core.JSONParser();
-      // chart.dataSource.parser.options.emptyAs = 0;
-
       chart.data = issuesVal;
 
       // Set input format for the dates
