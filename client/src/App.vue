@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 <template>
   <body>
     <div class="logo"></div>
@@ -70,6 +68,7 @@
         <div class="alert alert-danger" v-show="errored">Es trat ein Fehler auf.</div>
         <!--<d3timeserieschart :articlesattribute="articlesnew"></d3timeserieschart>-->
         <amchartstimeserieschart :articlesattribute="articlesnew"></amchartstimeserieschart>
+        <amchartsweekdayhour :articlesattribute="weekdayhour"></amchartsweekdayhour>
       </div>
   </body>
 </template>
@@ -77,10 +76,9 @@
 <script>
 
 import axios from 'axios';
-
 import moment from 'moment';
-
 import d3timeserieschart from './components/d3timeserieschart.vue';
+import amchartsweekdayhour from './components/amchartsweekdayhour.vue';
 import amchartstimeserieschart from './components/amchartstimeserieschart.vue';
 
 export default {
@@ -88,12 +86,14 @@ export default {
   components: {
     d3timeserieschart,
     amchartstimeserieschart,
+    amchartsweekdayhour,
   },
   data() {
     return {
       loading: false,
       errored: false,
       articlesnew: [],
+      weekdayhour: [],
       searchterm: '',
       authorterm: '',
       titleterm: '',
@@ -139,6 +139,21 @@ export default {
         })
         .finally(this.loading = false);
     },
+    getWeekdayHourLength() {
+      const path = 'http://localhost:5000/articles/hour/length';
+      axios
+        .get(path)
+        .then((response) => {
+          this.weekdayhour = response.data;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+  },
+  mounted() {
+    this.getArticles();
+    this.getWeekdayHourLength();
   },
 };
 </script>
@@ -217,4 +232,4 @@ blockquote:after {
 }
 </style>
 
-/* eslint-disable camelcase */
+/* eslint-disable */

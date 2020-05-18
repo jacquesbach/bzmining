@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="$CHART$" style="width: 100%; height: 550px;"></div>
+    <div id="charttimeseries" style="width: 100%; height: 550px;"></div>
   </div>
 </template>
 
@@ -27,7 +27,7 @@ export default {
       am4core.useTheme(am4themes_animated);
 
       // Create chart instance
-      const chart = am4core.create('$CHART$', am4charts.XYChart);
+      const chart = am4core.create('charttimeseries', am4charts.XYChart);
 
       // Add data
       chart.data = issuesVal;

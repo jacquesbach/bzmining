@@ -227,7 +227,7 @@ def get_category_comments():
 @app.route('/articles/hour/length', methods=['GET'])
 def get_hour_length():
     cur = mysql.connect().cursor()
-    query = "SELECT published_weekday AS weekday, HOUR(published_time) AS time, AVG(length) AS avglength \
+    query = "SELECT published_weekday AS weekday, HOUR(published_time) AS time, count(*) as count, AVG(length) AS avglength \
         FROM articles \
         WHERE published_weekday IS NOT NULL \
         AND published_time IS NOT NULL \
@@ -240,7 +240,8 @@ def get_hour_length():
         dictionary = {
             'weekday' : str(row[0]),
             'hour' : row[1],
-            'length' : str(row[2]) }
+            'count' : row[2],
+            'length' : str(row[3]) }
         array_of_dicts.append(dictionary)
     return jsonify(array_of_dicts)
 
