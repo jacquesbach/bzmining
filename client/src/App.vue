@@ -131,6 +131,7 @@ export default {
               obj.countdpa = element.countdpa;
             }
           });
+          payload.searchterm = this.searchterm;
           this.articlesnew = payload;
         })
         .catch((error) => {

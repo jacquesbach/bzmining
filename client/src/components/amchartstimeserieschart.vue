@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="charttimeseries" style="width: 100%; height: 550px;"></div>
+    <div id="charttimeseries" style="width: 100%; height: 600px;"></div>
   </div>
 </template>
 
@@ -17,9 +17,9 @@ export default {
     };
   },
   watch: {
-    articlesattribute(val) {
+    articlesattribute(val1) {
       if (this.chart != null) this.chart.remove();
-      this.renderChart(val);
+      this.renderChart(val1);
     },
   },
   methods: {
@@ -38,6 +38,16 @@ export default {
       // Create axes
       const dateAxis = chart.xAxes.push(new am4charts.DateAxis());
       const valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+
+      // Add chart title
+      const charttitle = chart.titles.create();
+      if (issuesVal.searchterm != null && issuesVal.searchterm != '') {
+      charttitle.text = "Veröffentlichte Artikel zum Keyword " + issuesVal.searchterm;
+      } else {
+      charttitle.text = "Veröffentlichte Artikel";
+      }
+      charttitle.fontSize = 22;
+      charttitle.marginBottom = 30;
 
       // Create series
       const series = chart.series.push(new am4charts.LineSeries());
