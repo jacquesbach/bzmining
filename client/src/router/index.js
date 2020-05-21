@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '@/views/Home.vue';
 import Statistics from '@/views/Statistics.vue';
+import Network from '@/views/Networkgraphs.vue';
 import Ping from '@/components/ping.vue';
 
 Vue.use(Router);
@@ -17,9 +18,14 @@ export default new Router({
       component: Home,
     },
     {
-      path: '/statistik',
+      path: '/statistics',
       name: 'Statistics',
       component: Statistics,
+    },
+    {
+      path: '/networkgraphs',
+      name: 'Network',
+      component: Network,
     },
     {
       path: '/ping',

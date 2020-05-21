@@ -38,8 +38,8 @@
       (<a href="https://www.badische-zeitung.de/">„Badische Zeitung“</a>) geschehen,
       um die Thesen, die Klaus Simon 1987 zur Funktion der Lokalpresse aufstellte, mittels
       moderner Methoden erneut zu überprüfen.</p>
-      <p>Seit dem 8. Februar überwachen wir die Website der Badischen Zeitung und sammeln
-      Daten über die veröffentlichten Artikel für eine ergebnisoffene Analyse. Nach und nach
+      <p>Seit dem 8. Februar scannen wir die Website der Badischen Zeitung und sammeln
+      Daten über die veröffentlichten Artikel. Nach und nach
       stellen wir hier die Auswertung zur Verfügung.</p>
   </body>
 </template>

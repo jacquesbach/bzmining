@@ -137,9 +137,6 @@ input {
   width:100%;
   text-align:center;
 }
-.bar {
-  fill: #626d79;
-  }
 </style>
 
 /* eslint-disable */

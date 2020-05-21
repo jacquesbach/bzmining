@@ -23,8 +23,13 @@ export default {
         },
         {
           id: 1,
-          text: 'Statistik',
-          page: '/statistik',
+          text: 'Statistics',
+          page: '/statistics',
+        },
+        {
+          id: 2,
+          text: 'Network Graphs',
+          page: '/networkgraphs',
         },
       ],
     };
@@ -40,6 +45,10 @@ a {
 a:hover {
   color:#2f2f2f;
   text-decoration: none;
+}
+a.router-link-exact-active {
+  font-weight: 700;
+  color:#2f2f2f;
 }
 .logo {
   line-height: 0px;
