@@ -1,0 +1,45 @@
+<html>
+    <head>
+      {% if title %}
+      <title>BZ-Mining - {{ title }}</title>
+      {% else %}
+      <title>BZ-Mining</title>
+      {% endif %}
+      <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+        @import url('https://fonts.googleapis.com/css?family=Sanchez&display=swap');
+        @import url('https://fonts.googleapis.com/css?family=Arimo&display=swap');
+        body {
+          display:block;
+          max-width: 800px;
+          margin-left: auto;
+          margin-right: auto;
+          margin-top:60px;
+          color: #2f2f2f;
+          font-family: "Roboto";
+          font-size: 20px;
+          line-height: 1.7;
+          overflow-wrap: break-word;
+        }
+        .logo {
+          line-height: 0px;
+          font-size:0px;
+          color:transparent;
+          background-image:url({{url_for('static', filename='logo-text.svg')}});
+          background-position: left bottom;
+          background-repeat: no-repeat;
+          background-size: 250px auto;
+          height:63px;
+          width:255px;
+          display:block;
+          margin-bottom:20px;
+          }
+        </style>
+    </head>
+    <body>
+        <div class="logo"></div>
+        <nav><a href="/">Home</a> | <a href="/articles">Articles</a> | <a href="/articles/weekday/hour">Weekday/Hour</a> | <a href="/articles/author/count">Authors/Count</a> | <a href="/articles/author/length">Authors/Length</a> | <a href="/articles/category/premium">Category/Premium</a> | <a href="/articles/category/length">Category/Length</a> | <a href="/articles/category/comments">Category/Comments</a> | <a href="/articles/hour/length">Hour/Length</a> | <a href="/ping">Ping</a></nav>
+        <hr>
+        {% block content %}{% endblock %}
+    </body>
+</html>

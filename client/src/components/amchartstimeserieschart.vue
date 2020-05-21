@@ -17,9 +17,10 @@ export default {
     };
   },
   watch: {
-    articlesattribute(val1) {
+    articlesattribute(val) {
       if (this.chart != null) this.chart.remove();
-      this.renderChart(val1);
+      this.renderChart(val);
+      console.log(val);
     },
   },
   methods: {
@@ -51,10 +52,10 @@ export default {
 
       // Create series
       const series = chart.series.push(new am4charts.LineSeries());
-      series.dataFields.valueY = 'countall';
+      series.dataFields.valueY = 'count';
       series.dataFields.dateX = 'date';
       series.name = 'Zahl aller veröffentlichten Artikel';
-      series.tooltipText = '{countall}';
+      series.tooltipText = '{count}';
       series.stroke = am4core.color('#985757'); // red
       series.strokeWidth = 2;
       series.minBulletDistance = 15;

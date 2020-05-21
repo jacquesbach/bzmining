@@ -1,17 +1,10 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from flask_cors import CORS, cross_origin
 from flaskext.mysql import MySQL
+from app import app
 from datetime import date
+import datetime
 import json
-
-# configuration
-DEBUG = True
-
-# instantiate the app
-app = Flask(__name__)
-app.config.from_object(__name__)
-
-CORS(app, support_credentials=True)
 
 mysql = MySQL()
 
@@ -23,10 +16,22 @@ app.config['MYSQL_DATABASE_HOST'] = ''
 
 mysql.init_app(app)
 
+@app.route('/')
+def index():
+    user = {'username': 'mein Freund'}
+    now = datetime.datetime.now()
+    if now.hour >= 0 and now.hour <= 6:
+        greeting = "Gute Nacht"
+    elif now.hour >= 6 and now.hour <= 12:
+        greeting = "Guten Morgen"
+    elif now.hour >= 12 and now.hour <= 18:
+        greeting = "Schönen Nachmittag"
+    elif now.hour >= 18 and now.hour <= 0:
+        greeting = "Guten Abend"
+    return render_template('index.html', title='Home', user=user, greeting=greeting)
+
 @app.route('/articles', methods=['GET'])
 def get_articles():
-    cur = mysql.connect().cursor()
-
     query = "SELECT COUNT(*) as count, published_date as date from articles "
 
     if 's' in request.args:
@@ -61,33 +66,35 @@ def get_articles():
         query = query + "WHERE published_date >= '2020-02-08' AND published_date IS NOT NULL "
         params = ()
     
-    if 'dpa' in request.args:
-        query_dpa = query + "AND author LIKE 'dpa' "
-        query_dpa = query_dpa + ("GROUP BY published_date ORDER BY published_date ASC")
+    query_dpa = query + "AND author = 'dpa' "
+    query_dpa = query_dpa + "GROUP BY published_date ORDER BY published_date ASC"
     
-    query_all = query + ("GROUP BY published_date ORDER BY published_date ASC")
+    query_all = query + "GROUP BY published_date ORDER BY published_date ASC"
 
-    cur.execute(query_all, params)
-    rows_all = cur.fetchall()
-    if 'dpa' in request.args:
-        cur.execute(query_dpa, params)
-        rows_dpa = cur.fetchall()
-    array_of_dicts = []
-    if 'dpa' in request.args:
-        for i, j in zip(rows_all, rows_dpa):
-            dictionary = {
-                'date' : str(i[1]),
-                'countall' : str(i[0]),
-                'countdpa' : str(j[0]) }
-            array_of_dicts.append(dictionary)
-        return jsonify(array_of_dicts)
-    else:
-        for row in rows_all:
-            dictionary = {
-                'date' : str(row[1]),
-                'count' : row[0] }
-            array_of_dicts.append(dictionary)
-        return jsonify(array_of_dicts)
+    cur1 = mysql.connect().cursor()
+    cur1.execute(query_all, params)
+    rows_all = cur1.fetchall()
+    cur1.close()
+    array_of_all_dicts = []
+    for row in rows_all:
+        dictionary = {
+            'date' : str(row[1]),
+            'count' : row[0],
+            'countdpa' : 0 }
+        array_of_all_dicts.append(dictionary)
+    cur2 = mysql.connect().cursor()
+    cur2.execute(query_dpa, params)
+    rows_dpa = cur2.fetchall()
+    cur2.close()
+    array_of_dpa_dicts = []
+    for row in rows_dpa:
+        dictionary = {
+            'date' : str(row[1]),
+            'countdpa' : row[0] }
+        array_of_dpa_dicts.append(dictionary)
+    for e,v in zip(array_of_all_dicts,array_of_dpa_dicts):
+        e.update(v)
+    return jsonify(array_of_all_dicts)
 
 @app.route('/articles/weekday/hour', methods=['GET'])
 def get_weekday_hour():
@@ -248,6 +255,3 @@ def get_hour_length():
 @app.route('/ping', methods=['GET'])
 def ping_pong():
     return jsonify('pong!')
-
-if __name__ == '__main__':
-    app.run()
