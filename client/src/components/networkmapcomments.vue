@@ -23,7 +23,7 @@ import {
   LMap,
   LTileLayer,
 } from 'vue2-leaflet';
-import { latLng } from 'leaflet';
+// import { latLng } from 'leaflet';
 
 export default {
   name: 'KeywordsCommentsMap',
@@ -33,18 +33,20 @@ export default {
   },
   data() {
     return {
-      url: 'http://bz-mining.zapto.org/wp-content/uploads/tiles/keywords-comments/{z}/{x}/{y}.png',
+      url: '../assets/map_tiles/keywords-comments/{z}/{x}/{y}.png',
       zoom: 2,
-      center: latLng(47.41322, -1.219482),
-      currentCenter: latLng(47.41322, -1.219482),
+      center: [1, 2],
+      currentCenter: [1, 2],
       currentZoom: 2,
       attribution:
         '&copy; <a href="https://github.com/jacquesbach/">Jakob Bach</a>',
       mapOptions: {
-        zoomSnap: 1,
-        zoom: 2,
-        minZoom: 0,
         maxZoom: 6,
+        minZoom: 2,
+        zoomControl: 1,
+        scrollWheelZoom: 0,
+        doubleClickZoom: 1,
+        attributionControl: false,
       },
     };
   },

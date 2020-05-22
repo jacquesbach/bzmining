@@ -5,14 +5,22 @@ from app import app
 from datetime import date
 import datetime
 import json
+import os
 
 mysql = MySQL()
 
+loginpath = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'mysqllogin.txt')
+credentials = {}
+with open(loginpath, 'r') as f:
+    for line in f:
+        host, db, user, pwd = line.strip().split(';')
+        credentials = host, db, user, pwd
+
 # MySQL configurations
-app.config['MYSQL_DATABASE_USER'] = ''
-app.config['MYSQL_DATABASE_PASSWORD'] = ''
-app.config['MYSQL_DATABASE_DB'] = ''
-app.config['MYSQL_DATABASE_HOST'] = ''
+app.config['MYSQL_DATABASE_HOST'] = credentials[0]
+app.config['MYSQL_DATABASE_DB'] = credentials[1]
+app.config['MYSQL_DATABASE_USER'] = credentials[2]
+app.config['MYSQL_DATABASE_PASSWORD'] = credentials[3]
 
 mysql.init_app(app)
 
@@ -26,7 +34,7 @@ def index():
         greeting = "Guten Morgen"
     elif now.hour >= 12 and now.hour <= 18:
         greeting = "Schönen Nachmittag"
-    elif now.hour >= 18 and now.hour <= 0:
+    elif now.hour >= 18 and now.hour <= 24:
         greeting = "Guten Abend"
     return render_template('index.html', title='Home', user=user, greeting=greeting)
 
