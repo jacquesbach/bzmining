@@ -84,12 +84,12 @@ blockquote {
 blockquote:before {
   content: '\201C';
   position: absolute;
-  top: -0.15em;
+  top: -0.08em;
   left: 50%;
   transform: translate(-50%, -50%);
   background: #fff;
   width: 3rem;
-  height: 2rem;
+  height: 4rem;
   font: 6em/1.08em 'Arimo';
   color: #666;
   text-align: center;
