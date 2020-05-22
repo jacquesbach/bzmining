@@ -1,7 +1,7 @@
 <template>
 
   <div style="height: 500px; width: 100%">
-    <p>Center is at {{ currentCenter }} and the zoom is: {{ currentZoom }}</p>
+    <!--<p>Center is at {{ currentCenter }} and the zoom is: {{ currentZoom }}</p>-->
     <l-map
       style="height: 100%"
       :options="mapOptions"
@@ -33,10 +33,10 @@ export default {
   },
   data() {
     return {
-      url: '../assets/map_tiles/keywords-comments/{z}/{x}/{y}.png',
+      url: '/map_tiles/keywords-comments/{z}/{x}/{y}.png',
       zoom: 2,
-      center: [1, 2],
-      currentCenter: [1, 2],
+      center: [56.559482, -66.796875],
+      currentCenter: [56.559482, -66.796875],
       currentZoom: 2,
       attribution:
         '&copy; <a href="https://github.com/jacquesbach/">Jakob Bach</a>',
