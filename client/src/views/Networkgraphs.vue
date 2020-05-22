@@ -2,20 +2,28 @@
   <body>
       <Navigation></Navigation>
       <div id="app">
-        <Networkmap></Networkmap>
+        <Networkmapcomments></Networkmapcomments>
+        <p>&nbsp;</p>
+        <Networkmappaywall></Networkmappaywall>
+        <p>&nbsp;</p>
+        <Networkmappersonen></Networkmappersonen>
       </div>
   </body>
 </template>
 
 <script>
 import Navigation from '@/components/navigation.vue';
-import Networkmap from '@/components/networkmapcomments.vue';
+import Networkmapcomments from '@/components/networkmapcomments.vue';
+import Networkmappaywall from '@/components/networkmappremium.vue';
+import Networkmappersonen from '@/components/networkmappersonen.vue';
 
 export default {
   name: 'app',
   components: {
     Navigation,
-    Networkmap,
+    Networkmapcomments,
+    Networkmappaywall,
+    Networkmappersonen,
   },
 };
 </script>
