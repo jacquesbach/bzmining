@@ -60,3 +60,10 @@ export default {
   },
 };
 </script>
+
+<style>
+.leaflet-container {
+    background: #fff!important;
+    outline: 0;
+}
+</style>
