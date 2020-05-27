@@ -2,6 +2,10 @@
 .editorconfig
 mysqllogin.txt
 
+.env.local
+.env.production.local
+.env.development.local
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
