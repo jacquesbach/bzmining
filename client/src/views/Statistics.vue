@@ -10,18 +10,28 @@
               v-model="searchterm"
               class=""
             ><br/>
-            <!--<input
+            <input
               type="text"
               placeholder="Gib hier einen Autor ein!"
               v-model="authorterm"
-              class="col-md-2 col-md-offset-5"
+              class=""
             ><br/>
             <input
               type="text"
               placeholder="Gib hier einen Titel ein!"
               v-model="titleterm"
-              class="col-md-2 col-md-offset-5"
-            >-->
+              class=""
+            ><br/>
+            <div class="form-check">
+            <label class="form-check-label">
+              <input type="checkbox" id="checkbox" class="form-check-input"
+              v-model="showdpa" @change="getArticles">
+              Zeige dpa-Artikel an?
+            </label>
+            </div>
+            <p>
+            <input type="submit" value="Absenden">
+            </p>
           </div>
         </form>
         <div class="alert alert-info" v-show="loading">Lade...</div>
@@ -60,6 +70,7 @@ export default {
       authorterm: '',
       titleterm: '',
       startDate: null,
+      showdpa: true,
       apiurl: null,
     };
   },
@@ -92,7 +103,9 @@ export default {
             const obj = payload.filter((o) => o.date === key)[0];
             if ((typeof obj !== 'undefined') && (obj !== null)) {
               obj.count = element.count;
-              obj.countdpa = element.countdpa;
+              if (this.showdpa) {
+                obj.countdpa = element.countdpa;
+              }
             }
           });
           payload.searchterm = this.searchterm;
