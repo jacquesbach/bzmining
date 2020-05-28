@@ -28,6 +28,7 @@
         <div class="alert alert-danger" v-show="errored">Es trat ein Fehler auf.</div>
         <amchartstimeserieschart :articlesattribute="articlesnew"></amchartstimeserieschart>
         <amchartsweekdayhour :articlesattribute="weekdayhour"></amchartsweekdayhour>
+        <amchartscategorylength :articlesattribute="categorylength"></amchartscategorylength>
       </div>
   </body>
 </template>
@@ -38,6 +39,7 @@ import axios from 'axios';
 import moment from 'moment';
 import amchartsweekdayhour from '@/components/amchartsweekdayhour.vue';
 import amchartstimeserieschart from '@/components/amchartstimeserieschart.vue';
+import amchartscategorylength from '@/components/amchartscategorylength.vue';
 import Navigation from '@/components/navigation.vue';
 
 export default {
@@ -45,6 +47,7 @@ export default {
   components: {
     amchartstimeserieschart,
     amchartsweekdayhour,
+    amchartscategorylength,
     Navigation,
   },
   data() {
@@ -108,10 +111,21 @@ export default {
         });
     // .catch((error) => { console.error(error); });
     },
+    getCategoryLength() {
+      const apiurl = process.env.VUE_APP_API;
+      const path = `${apiurl}/articles/category/length`;
+      axios
+        .get(path)
+        .then((response) => {
+          this.categorylength = response.data;
+        });
+    // .catch((error) => { console.error(error); });
+    },
   },
   mounted() {
     this.getArticles();
     this.getWeekdayHourLength();
+    this.getCategoryLength();
   },
 };
 </script>
