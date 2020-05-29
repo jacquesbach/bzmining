@@ -8,31 +8,31 @@
               type="text"
               placeholder="Gib hier einen Suchbegriff für den Artikelinhalt ein!"
               v-model="searchterm"
-              class=""
-            ><br/>
+              class="form-control"
+            >
+          </div>
+          <div class="form-group">
             <input
               type="text"
               placeholder="Gib hier einen Autor ein!"
               v-model="authorterm"
-              class=""
-            ><br/>
+              class="form-control"
+            >
+          </div>
+          <div class="form-group">
             <input
               type="text"
               placeholder="Gib hier einen Titel ein!"
               v-model="titleterm"
-              class=""
-            ><br/>
-            <div class="form-check">
-            <label class="form-check-label">
-              <input type="checkbox" id="checkbox" class="form-check-input"
-              v-model="showdpa" @change="getArticles">
-              Zeige dpa-Artikel an?
-            </label>
-            </div>
-            <p>
-            <input type="submit" value="Absenden">
-            </p>
+              class="form-control"
+            >
           </div>
+          <div class="form-check w-75">
+            <input type="checkbox" id="checkbox" class="form-check-input"
+              v-model="showdpa" @change="getArticles">
+            <label class="form-check-label">Zeige dpa-Artikel an?</label>
+          </div>
+          <button type="submit" class="btn btn-primary">Absenden</button>
         </form>
         <div class="alert alert-info" v-show="loading">Lade...</div>
         <div class="alert alert-danger" v-show="errored">Es trat ein Fehler auf.</div>
