@@ -1,39 +1,43 @@
 <template>
   <body>
       <Navigation></Navigation>
+      <div class="shadow p-3 mb-5 bg-white rounded">
+      <form action="#" @submit.prevent="getArticles">
+        <div class="form-group">
+          <input
+            type="text"
+            placeholder="Gib hier einen Suchbegriff für den Artikelinhalt ein!"
+            v-model="searchterm"
+            class="form-control"
+          >
+        </div>
+        <div class="form-group">
+          <input
+            type="text"
+            placeholder="Gib hier einen Autor ein!"
+            v-model="authorterm"
+            class="form-control"
+          >
+        </div>
+        <div class="form-group">
+          <input
+            type="text"
+            placeholder="Gib hier einen Titel ein!"
+            v-model="titleterm"
+            class="form-control"
+          >
+        </div>
+        <div class="custom-control custom-checkbox">
+        <input class="custom-control-input" type="checkbox" value="" id="dpa-check"
+          v-model="showdpa" @change="getArticles">
+        <label class="custom-control-label" for="dpa-check">
+          Zeige dpa-Artikel an?
+        </label>
+        </div>
+        <button type="submit" class="btn btn-primary">Absenden</button>
+      </form>
+      </div>
       <div id="app">
-        <form action="#" @submit.prevent="getArticles">
-          <div class="form-group">
-            <input
-              type="text"
-              placeholder="Gib hier einen Suchbegriff für den Artikelinhalt ein!"
-              v-model="searchterm"
-              class="form-control"
-            >
-          </div>
-          <div class="form-group">
-            <input
-              type="text"
-              placeholder="Gib hier einen Autor ein!"
-              v-model="authorterm"
-              class="form-control"
-            >
-          </div>
-          <div class="form-group">
-            <input
-              type="text"
-              placeholder="Gib hier einen Titel ein!"
-              v-model="titleterm"
-              class="form-control"
-            >
-          </div>
-          <div class="form-check w-75">
-            <input type="checkbox" id="checkbox" class="form-check-input"
-              v-model="showdpa" @change="getArticles">
-            <label class="form-check-label">Zeige dpa-Artikel an?</label>
-          </div>
-          <button type="submit" class="btn btn-primary">Absenden</button>
-        </form>
         <div class="alert alert-info" v-show="loading">Lade...</div>
         <div class="alert alert-danger" v-show="errored">Es trat ein Fehler auf.</div>
         <amchartstimeserieschart :articlesattribute="articlesnew"></amchartstimeserieschart>
@@ -163,9 +167,9 @@ body {
   text-align: center;
   color: #2c3e50;
 }
-input {
-  width:100%;
-  text-align:center;
+.custom-control-label {
+  font-size:1rem;
+  color:#495057;
 }
 </style>
 
