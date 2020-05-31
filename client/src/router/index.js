@@ -11,9 +11,9 @@ export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
-    { path: '*', redirect: '/' }, // catch-all route
+    // { path: '*', redirect: '/' }, // catch-all route
     {
-      path: '/',
+      path: '/home',
       name: 'home',
       component: Home,
     },

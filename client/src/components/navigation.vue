@@ -19,7 +19,7 @@ export default {
         {
           id: 0,
           text: 'Home',
-          page: '/',
+          page: '/home',
         },
         {
           id: 1,

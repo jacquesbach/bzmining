@@ -24,7 +24,7 @@ app.config['MYSQL_DATABASE_PASSWORD'] = credentials[3]
 
 mysql.init_app(app)
 
-@app.route('/')
+@app.route('/api')
 def index():
     user = {'username': 'mein Freund'}
     now = datetime.datetime.now()
@@ -38,7 +38,7 @@ def index():
         greeting = "Guten Abend"
     return render_template('index.html', title='Home', user=user, greeting=greeting)
 
-@app.route('/articles', methods=['GET'])
+@app.route('/api/articles', methods=['GET'])
 def get_articles():
     query = "SELECT COUNT(*) as count, published_date as date from articles "
 
@@ -104,7 +104,7 @@ def get_articles():
         e.update(v)
     return jsonify(array_of_all_dicts)
 
-@app.route('/articles/weekday/hour', methods=['GET'])
+@app.route('/api/articles/weekday/hour', methods=['GET'])
 def get_weekday_hour():
     cur = mysql.connect().cursor()
     query = "SELECT published_weekday AS weekday, HOUR(published_time) AS time, COUNT(*) AS count \
@@ -124,7 +124,7 @@ def get_weekday_hour():
         array_of_dicts.append(dictionary)
     return jsonify(array_of_dicts)
 
-@app.route('/articles/author/count', methods=['GET'])
+@app.route('/api/articles/author/count', methods=['GET'])
 def get_author_count():
     cur = mysql.connect().cursor()
     query = "SELECT author AS author, COUNT(*) AS count \
@@ -154,7 +154,7 @@ def get_author_count():
         array_of_dicts.append(dictionary)
     return jsonify(array_of_dicts)
 
-@app.route('/articles/author/length', methods=['GET'])
+@app.route('/api/articles/author/length', methods=['GET'])
 def get_author_length():
     cur = mysql.connect().cursor()
     query = "SELECT author AS author, AVG(length) AS laenge \
@@ -175,7 +175,7 @@ def get_author_length():
         array_of_dicts.append(dictionary)
     return jsonify(array_of_dicts)
 
-@app.route('/articles/category/premium', methods=['GET'])
+@app.route('/api/articles/category/premium', methods=['GET'])
 def get_category_premium():
     cur = mysql.connect().cursor()
     query = "SELECT submenu_category AS category, AVG(premium) AS plus \
@@ -194,7 +194,7 @@ def get_category_premium():
         array_of_dicts.append(dictionary)
     return jsonify(array_of_dicts)
 
-@app.route('/articles/category/length', methods=['GET'])
+@app.route('/api/articles/category/length', methods=['GET'])
 def get_category_length():
     cur = mysql.connect().cursor()
     query = "SELECT submenu_category AS category, AVG(length) AS avglength \
@@ -217,7 +217,7 @@ def get_category_length():
         array_of_dicts.append(dictionary)
     return jsonify(array_of_dicts)
 
-@app.route('/articles/category/comments', methods=['GET'])
+@app.route('/api/articles/category/comments', methods=['GET'])
 def get_category_comments():
     cur = mysql.connect().cursor()
     query = "SELECT submenu_category AS category, AVG(comments) AS avgcomments \
@@ -239,7 +239,7 @@ def get_category_comments():
         array_of_dicts.append(dictionary)
     return jsonify(array_of_dicts)
 
-@app.route('/articles/hour/length', methods=['GET'])
+@app.route('/api/articles/hour/length', methods=['GET'])
 def get_hour_length():
     cur = mysql.connect().cursor()
     query = "SELECT published_weekday AS weekday, HOUR(published_time) AS time, count(*) as count, AVG(length) AS avglength \

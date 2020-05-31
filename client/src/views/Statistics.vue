@@ -70,6 +70,7 @@ export default {
       errored: false,
       articlesnew: [],
       weekdayhour: [],
+      categorylength: [],
       searchterm: '',
       authorterm: '',
       titleterm: '',
@@ -96,7 +97,7 @@ export default {
     getArticles() {
       const apiurl = process.env.VUE_APP_API;
       this.loading = true;
-      const path = `${apiurl}/articles?s=${this.searchterm}&author=${this.authorterm}&title=${this.titleterm}`;
+      const path = `${apiurl}/api/articles?s=${this.searchterm}&author=${this.authorterm}&title=${this.titleterm}`;
       this.startDate = moment('2020-02-08').format('YYYY-MM-DD');
       axios
         .get(path)
@@ -120,7 +121,7 @@ export default {
     },
     getWeekdayHourLength() {
       const apiurl = process.env.VUE_APP_API;
-      const path = `${apiurl}/articles/hour/length`;
+      const path = `${apiurl}/api/articles/hour/length`;
       axios
         .get(path)
         .then((response) => {
@@ -130,7 +131,7 @@ export default {
     },
     getCategoryLength() {
       const apiurl = process.env.VUE_APP_API;
-      const path = `${apiurl}/articles/category/length`;
+      const path = `${apiurl}/api/articles/category/length`;
       axios
         .get(path)
         .then((response) => {
